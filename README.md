@@ -1,20 +1,23 @@
 # DomainSlicer
 A Python utility to automate the extraction of specific domain sequences from FASTA files based on NCBI Conserved Domain Search (CD-Search) results.
 
-## Overview
+## Overview & Motivation
 
 NCBI's Conserved Domain Search identifies functional domains within protein sequences, but it doesn't provide an easy way to batch-download the specific sequences of those identified domains. 
 
-**DomainSlicer** bridges this gap. It parses the `.txt` (tab-delimited) output from a CD-Search, identifies the coordinates of your domain of interest, and uses `seqkit` to cut those regions from your original sequence file.
+This tool was born out of a practical necessity during the analysis of massive genomic datasets of the **GEV virus**. To perform accurate **phylogenetic analysis**, you often need to isolate specific conserved domains (like RdRp, Helicase, or Capsid proteins) rather than using the full polyprotein, which can be noisy. Manually slicing these regions from thousands of sequences is time-consuming and prone to human error. 
+
+I developed this script to provide a **fast, automated workflow** to go from a CD-Search hit list directly to a FASTA file ready for multiple sequence alignment (MSA) and tree building.
 
 ## Features
 
 - **Automated Parsing**: Reads tab-delimited CD-Search result files.
+- **High-Throughput**: Process thousands of hits in seconds.
 - **Precision Extraction**: Uses start/end coordinates to extract exact domain regions.
 - **Flexible Output**: Choose between:
   - A single multi-FASTA file containing all extracted domains.
   - Individual FASTA files for every query.
-- **Clean Workflow**: Automatically manages and removes temporary files and indices.
+- **Phylogeny Ready**: Output files are compatible with alignment tools like MAFFT, ClustalW, or MUSCLE.
 - **User-Friendly Interface**: Simple prompts guide users through the process.
 
 ## Prerequisites
